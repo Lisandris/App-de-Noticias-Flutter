@@ -1,10 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:newsapp/src/pages/tabs_pages.dart';
 import 'package:newsapp/src/services/news_service.dart';
 import 'package:newsapp/src/theme/tema.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+
+void main() {
+
+  runApp(MyApp());
+  
+}
 
 class MyApp extends StatelessWidget {
   @override

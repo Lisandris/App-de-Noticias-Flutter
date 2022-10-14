@@ -39,11 +39,60 @@ class _Noticia extends StatelessWidget {
       children: <Widget>[
         _TarjetaTopBar( noticia, index),
 
-
         _TarjetaTitulo( noticia ),
 
         _TarjetaImagen( noticia ),
+
+        _TarjetaBody( noticia ),
+
+        SizedBox(height: 10),
+        Divider(),
+
+        _TarjetaBotones(),
       ],
+    );
+  }
+}
+
+class _TarjetaBotones extends StatelessWidget {
+ 
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          RawMaterialButton(
+            onPressed: (){},
+            fillColor: miTema.colorScheme.secondary,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: Icon(Icons.more_horiz),
+          ),
+          SizedBox(width: 10), /* para separar los puntos */
+
+          RawMaterialButton(
+            onPressed: (){},
+            fillColor: miTema.colorScheme.secondary,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: Icon(Icons.more_horiz),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _TarjetaBody extends StatelessWidget {
+
+  final Article noticia;
+
+  const _TarjetaBody( this.noticia );
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Text( noticia.description ?? ''),
     );
   }
 }
@@ -52,12 +101,30 @@ class _TarjetaImagen extends StatelessWidget {
 
   final Article noticia;
 
-  const _TarjetaImagen (this.noticia);
 
+  const _TarjetaImagen (this.noticia);
   @override
   Widget build(BuildContext context) {
+    print('lisa URL: ${noticia.urlToImage}');
     return Container(
-      child: Text('hola'),
+      margin: EdgeInsets.symmetric(vertical: 15),
+      child: ClipRRect(
+        borderRadius: BorderRadius.only( topLeft: Radius.circular(50), bottomRight: Radius.circular(50) ),
+        child: Container(
+          child: (noticia.urlToImage != null) 
+                // Image.network(noticia.urlToImage!)
+            ?FadeInImage(
+              image: NetworkImage(noticia.urlToImage!),
+              placeholder: const AssetImage('assets/img/giphy.gif'),
+              imageErrorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                print('Error en URL: ${noticia.urlToImage}');
+                  // return const Image(image: AssetImage('assets/img/no-image.png'));
+                return Image.network('https://i.stack.imgur.com/GNhxO.png');
+               }
+            ) 
+          : const Image(image: AssetImage('assets/img/no-image.png'))
+        ),
+      ),
     );
   }
 }
@@ -75,7 +142,6 @@ class _TarjetaTitulo extends StatelessWidget{
       child: Text( noticia.title, style: TextStyle( fontSize: 20, fontWeight: FontWeight.w700)),
     );
   }
-
 }
 
 class _TarjetaTopBar extends StatelessWidget {

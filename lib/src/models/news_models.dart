@@ -37,7 +37,7 @@ class Article {
         required this.source,
         this.author,
         required this.title,
-        required this.description,
+        this.description,
         required this.url,
         this.urlToImage,
         required this.publishedAt,
@@ -47,7 +47,7 @@ class Article {
     Source source;
     String? author;
     String title;
-    String description;
+    String? description;
     String url;
     String? urlToImage;
     DateTime publishedAt;
@@ -57,18 +57,19 @@ class Article {
         source: Source.fromJson(json["source"]),
         author: json["author"] == null ? null : json["author"],
         title: json["title"],
-        description: json["description"] == null ? null : json["description"],
+        description: json["description"],
         url: json["url"],
-        urlToImage: json["urlToImage"],
+        urlToImage: json["urlToImage"], 
         publishedAt: DateTime.parse(json["publishedAt"]),
         content: json["content"] == null ? null : json["content"],
     );
+        
 
     Map<String, dynamic> toJson() => {
         "source": source.toJson(),
         "author": author == null ? null : author,
         "title": title,
-        "description": description == null ? null : description,
+        "description": description,
         "url": url,
         "urlToImage": urlToImage,
         "publishedAt": publishedAt.toIso8601String(),
