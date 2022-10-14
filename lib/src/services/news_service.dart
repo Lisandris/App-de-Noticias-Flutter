@@ -22,8 +22,15 @@ class NewsService with ChangeNotifier{
 
   getTopHeadlines() async{
     
-    final urlTail ='/v2/top-headlines?apiKey=$_APIKEY&country=ve';
-    final Uri uri = Uri.https(_URL_NEWS, urlTail);
+    final urlTail ='/v2/top-headlines';
+    final Uri uri = Uri.https(
+      _URL_NEWS, 
+      urlTail, {
+        'apiKey': '$_APIKEY',
+        'country': 've'
+      }
+      
+    );
     
     final resp = await http.get(uri);
 
