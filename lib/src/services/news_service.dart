@@ -40,8 +40,8 @@ class NewsService with ChangeNotifier{
 
   }
 
-  // get selectedCategory => this._selectedCategory;
-  set selectedCategory( String valor){
+  get selectedCategory => this._selectedCategory;
+  set setCategory( String valor){
     this._selectedCategory = valor;
 
     this.getArticlesByCategory( valor );
