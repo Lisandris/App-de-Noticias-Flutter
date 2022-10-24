@@ -48,6 +48,8 @@ class NewsService with ChangeNotifier{
     notifyListeners();
   }
 
+  List<Article>? get getArticulosCategoriaSeleccionada => this.categoryArticles[ this.selectedCategory ];
+
 
   getTopHeadlines() async{
     
@@ -81,7 +83,8 @@ class NewsService with ChangeNotifier{
       _URL_NEWS, 
       urlTail, {
         'apiKey': '$_APIKEY',
-        'country': 've&category=$category'
+        'country': 've',
+        'category': '$category'
       }
       
     );
@@ -89,6 +92,8 @@ class NewsService with ChangeNotifier{
     final resp = await http.get(uri);
 
     final newsResponse =  newsResponseFromJson( resp.body );
+
+    print('lisa newsResponse: ${ newsResponse.articles.length }');
     
     this.categoryArticles[category]?.addAll(newsResponse.articles);
 
